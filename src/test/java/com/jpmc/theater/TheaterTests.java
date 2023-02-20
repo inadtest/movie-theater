@@ -19,4 +19,5 @@ public class TheaterTests {
         Theater theater = new Theater(LocalDateProvider.singleton());
         theater.printSchedule();
     }
+
 }

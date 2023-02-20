@@ -43,9 +43,18 @@ public class Theater {
     public void printSchedule() {
         System.out.println(provider.currentDate());
         System.out.println("===================================================");
-        schedule.forEach(s ->
-                System.out.println(s.getSequenceOfTheDay() + ": " + s.getStartTime() + " " + s.getMovie().getTitle() + " " + humanReadableFormat(s.getMovie().getRunningTime()) + " $" + s.getMovieFee())
+
+        schedule.forEach(s->
+                System.out.println(s.getSequenceOfTheDay() + ": " + s.getStartTime() + " " + s.getMovie().getTitle() + " " + humanReadableFormat(s.getMovie().getRunningTime()) + " $" + s.getDiscountedTicketPrice())
         );
+        System.out.println("===================================================");
+    }
+
+    public void printScheduleInJson() {
+        System.out.println(provider.currentDate());
+        System.out.println("===================================================");
+
+        schedule.forEach(s -> System.out.println(s.getShowingInJson()));
         System.out.println("===================================================");
     }
 
@@ -69,5 +78,6 @@ public class Theater {
     public static void main(String[] args) {
         Theater theater = new Theater(LocalDateProvider.singleton());
         theater.printSchedule();
+        theater.printScheduleInJson();
     }
 }

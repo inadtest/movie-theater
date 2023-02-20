@@ -8,11 +8,12 @@ public class Discount {
     private double baseFee = 0;
     private int sequenceOfTheDay;
     private LocalDateTime showStartTime;
-    private static int MOVIE_CODE_SPECIAL = 1;
-    private static LocalTime startTime = LocalTime.parse( "11:00:00" );
-    private static LocalTime endTime = LocalTime.parse( "16:00:00" );
+    private static final int MOVIE_CODE_SPECIAL = 1;
+    private static final int DISCOUNT_DAY = 7;
+    private static LocalTime discountStartTime = LocalTime.parse( "11:00:00" );
+    private static LocalTime discountEndTime = LocalTime.parse( "16:00:00" );
 
-    Discount(Showing showing) {
+    public Discount(Showing showing) {
         this.specialMovieCode = showing.getMovie().getSpecialCode();
         this.baseFee = showing.getMovie().getTicketPrice();
         this.sequenceOfTheDay = showing.getSequenceOfTheDay();
@@ -22,9 +23,9 @@ public class Discount {
     double calculateDiscount() {
         // DISCOUNT 1: Movie has a special code giving a 20% discount
         double specialDiscount = 0;
-        //LocalTime startTime = LocalTime.parse( "11:00:00" );
-        //LocalTime endTime = LocalTime.parse( "16:00:00" );
-        int DAY = 7;
+//        LocalTime startTime = LocalTime.parse( "11:00:00" );
+//        LocalTime endTime = LocalTime.parse( "16:00:00" );
+
         if (MOVIE_CODE_SPECIAL == specialMovieCode) {
             specialDiscount = baseFee * 0.2;  // 20% discount for special movie
         }
@@ -39,13 +40,13 @@ public class Discount {
 
         // DISCOUNT 3: Movie falls within time window giving 25% discount
         double additionalDiscount = 0;
-        if(showStartTime.toLocalTime().isAfter(startTime) && showStartTime.toLocalTime().isBefore(endTime) ) {
+        if(showStartTime.toLocalTime().isAfter(discountStartTime) && showStartTime.toLocalTime().isBefore(discountEndTime) ) {
             additionalDiscount = baseFee * .25;
         }
 
         // DISCOUNT 4: Movie is on certain day of month giving fixed discount
         double dayMonthDiscount = 0;
-        if(showStartTime.getDayOfMonth() == DAY) {
+        if(showStartTime.getDayOfMonth() == DISCOUNT_DAY) {
             dayMonthDiscount = 1;
         }
 

@@ -54,7 +54,7 @@ public class Theater {
         System.out.println(provider.currentDate());
         System.out.println("===================================================");
 
-        schedule.forEach(s -> System.out.println(s.getShowingInJson()));
+        schedule.forEach(s -> System.out.println(s.convertShowingToJsonFormat()));
         System.out.println("===================================================");
     }
 
